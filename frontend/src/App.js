@@ -1,23 +1,37 @@
 import "./App.css";
+import logo from "./contact-logo.PNG";
 
 function App() {
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <img src={logo} />
+        <p>Test Text</p>
       </header>
+      <section>
+        <p>
+          An intuitive and helpful tool for visualization and analysis of
+          business data.
+        </p>
+      </section>
+      <br />
+      <br />
+      <section className="section_introduction">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa,
+          repudiandae id? Ipsam mollitia laudantium ab distinctio sunt at
+          dolores iste, modi id, repellat sapiente magnam optio cumque quaerat
+          cupiditate rem! Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Magnam at molestiae et, aliquid quasi debitis. Quia tempora non
+          distinctio voluptates adipisci odit inventore aperiam aliquam nemo. Ex
+          quidem id tempora.
+        </p>
+        
+      </section>
     </div>
   );
 }
 
-export default App;
+export default App
