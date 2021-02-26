@@ -1,5 +1,5 @@
 # HooversDataAnalysis
-## <a href="https://zelgainemati.com" target="_blank">Visit this site here!</a>
+## <a href="https://hooversdataanalysis.web.app/" target="_blank">Visit this site here!</a>
 
 
 ### CONTENTS OF THIS FILE
@@ -22,7 +22,7 @@
 <a href="https://redux.js.org" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" alt="redux" width="40" height="40"/> </a>
 <br>
 
-The web application is deployed and can be reached <a href="https://zelgaitracker.com/" target="_blank"> here</a>.
+The web application is deployed and can be reached <a href="https://hooversdataanalysis.web.app/" target="_blank"> here</a>.
 <br>
 <br>
 
