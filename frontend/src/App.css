@@ -1,8 +1,9 @@
 .App {
-  text-align: left;
+  text-align: center;
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: 100px;
 }
 p {
   color: #fff;
@@ -22,6 +23,7 @@ img{
   /* unvisited link */
 a:link {
   color: #fff;
+  font-size: 1.5rem;
   text-decoration: none;
 }
 
@@ -48,7 +50,23 @@ a:active {
   border-radius: 8px;
   margin-left: 15rem;
   margin-right: 15rem;
+  padding: 0.4rem;
 }
 .section_introduction p {
   font-size : 1.4rem;
+}
+
+.section_upload{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+input{
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+}
+form{
+  padding:0;
 }

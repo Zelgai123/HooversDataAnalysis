@@ -1,14 +1,17 @@
 import "./App.css";
 import logo from "./contact-logo.PNG";
+import dataicon from "./dataicon.PNG";
 
 function App() {
-
-
   return (
     <div className="App">
       <header>
         <img src={logo} />
-        <p><a href="https://github.com/Zelgai123/HooversDataAnalysis">Github Repo</a></p>
+        <p>
+          <a href="https://github.com/Zelgai123/HooversDataAnalysis">
+            More Info
+          </a>
+        </p>
       </header>
       <section>
         <p>
@@ -28,10 +31,15 @@ function App() {
           distinctio voluptates adipisci odit inventore aperiam aliquam nemo. Ex
           quidem id tempora.
         </p>
-        
+      </section>
+      <section className = "section_upload">
+        <p>Upload your data!</p>
+        <form action="">
+          <input type="file"/>
+        </form>
       </section>
     </div>
   );
 }
 
-export default App
+export default App;
