@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <header>
         <img src={logo} />
-        <p>Test Text</p>
+        <p><a href="https://github.com/Zelgai123/HooversDataAnalysis">Github Repo</a></p>
       </header>
       <section>
         <p>
