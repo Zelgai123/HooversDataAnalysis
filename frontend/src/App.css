@@ -56,6 +56,15 @@ a:active {
   font-size: 1.4rem;
 }
 
+.Popup p {
+  color: #000;
+  font-size: 1rem;
+}
+.MapContainer {
+  height: 100vh;
+  width: 100wh;
+  border-radius: 8px;
+}
 .section_upload {
   display: flex;
   flex-direction: column;

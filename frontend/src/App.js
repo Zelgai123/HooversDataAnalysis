@@ -5,10 +5,21 @@ import * as XLSX from "xlsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
+import "leaflet/dist/leaflet.css";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  LayerGroup,
+  Circle,
+  Rectangle,
+  FeatureGroup,
+} from "react-leaflet";
 
 export default function App() {
   const useStyles = makeStyles({
@@ -18,6 +29,14 @@ export default function App() {
   });
 
   const [results, setResults] = useState([]);
+  const center = [53.10921096801758, 8.847594261169434];
+  const position = [51.505, -0.09]
+
+  const fillBlueOptions = { fillColor: "blue" };
+  const fillRedOptions = { fillColor: "red" };
+  const greenOptions = { color: "green", fillColor: "green" };
+  const purpleOptions = { color: "purple" };
+  const blueOptions = { color: "blue" };
 
   const readExcel = (file) => {
     setResults([]);
@@ -83,6 +102,33 @@ export default function App() {
               readExcel(file);
             }}
           />
+          <br />
+          <br />
+          <MapContainer
+            className="MapContainer"
+            center={center}
+            zoom={2}
+            scrollWheelZoom={true}
+          >
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <FeatureGroup pathOptions={blueOptions}>
+              <Popup className="Popup">
+                <a href="https://www.contact-software.com/de/" target="_blank">
+                  <img src={logo} />
+                </a>
+                <p>
+                  <b>Contact Software</b>
+                </p>
+              </Popup>
+              <Circle center={center} radius={200000} />
+            </FeatureGroup>
+           
+          </MapContainer>
+          <br />
+          <br />
           <TableContainer>
             <Table size="small" aria-label="a dense table">
               <TableHead>
@@ -118,7 +164,7 @@ export default function App() {
               </TableHead>
               <TableBody>
                 {results.map((d) => (
-                  <TableRow key={d["Company Name"]}>
+                  <TableRow key={d.Order}>
                     <TableCell component="th" scope="row">
                       {d["Company Name"]}
                     </TableCell>
