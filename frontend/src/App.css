@@ -10,17 +10,17 @@ p {
   text-align: center;
   font-size: 2rem;
 }
-header{
+header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-img{
+img {
   height: 5rem;
   width: auto;
 }
-  /* unvisited link */
+/* unvisited link */
 a:link {
   color: #fff;
   font-size: 1.5rem;
@@ -45,28 +45,28 @@ a:active {
   text-decoration: none;
 }
 
-.section_introduction{
-  background-color: #0080C5;
+.section_introduction {
+  background-color: #0080c5;
   border-radius: 8px;
-  margin-left: 15rem;
-  margin-right: 15rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
   padding: 0.4rem;
 }
 .section_introduction p {
-  font-size : 1.4rem;
+  font-size: 1.4rem;
 }
 
-.section_upload{
+.section_upload {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
-input{
+input {
   margin: 0;
   padding: 0;
   font-size: 1rem;
 }
-form{
-  padding:0;
+form {
+  padding: 0;
 }
