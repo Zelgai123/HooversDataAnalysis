@@ -2,7 +2,6 @@ import "./App.css";
 import logo from "./contact-logo.PNG";
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import "leaflet/dist/leaflet.css";
@@ -13,28 +12,17 @@ import TableRow from "@material-ui/core/TableRow";
 import {
   MapContainer,
   TileLayer,
-  Marker,
   Popup,
-  LayerGroup,
   Circle,
-  Rectangle,
   FeatureGroup,
 } from "react-leaflet";
 
 export default function App() {
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 650,
-    },
-  });
+
 
   const [results, setResults] = useState([]);
   const center = [53.10921096801758, 8.847594261169434];
-  const position = [51.505, -0.09];
 
-  const fillBlueOptions = { fillColor: "blue" };
-  const fillRedOptions = { fillColor: "red" };
-  const greenOptions = { color: "green", fillColor: "green" };
   const purpleOptions = { color: "purple" };
   const blueOptions = { color: "blue" };
   function popNull(data) {
@@ -79,7 +67,7 @@ export default function App() {
     <div className="App">
       <header>
         <a href="https://www.contact-software.com/de/" target="_blank">
-          <img src={logo} />
+          <img src={logo} alt="Contact Logo"/>
         </a>
         <p>
           <a
@@ -114,7 +102,7 @@ export default function App() {
           <MapContainer
             className="MapContainer"
             center={center}
-            zoom={2}
+            zoom={3}
             scrollWheelZoom={true}
           >
             <TileLayer
@@ -124,7 +112,7 @@ export default function App() {
             <FeatureGroup pathOptions={blueOptions}>
               <Popup className="Popup">
                 <a href="https://www.contact-software.com/de/" target="_blank">
-                  <img src={logo} />
+                  <img src={logo} alt="COntact Logo" />
                 </a>
                 <p>
                   <b>Contact Software</b>
@@ -155,7 +143,7 @@ export default function App() {
                 </Popup>
                 <Circle
                   center={[d.Latitude, d.Longitude]}
-                  radius={d["Employees (All Sites)"] * 50 + 200000}
+                  radius={d["Employees (All Sites)"] * 200 + 200000}
                 />
               </FeatureGroup>
             ))}
