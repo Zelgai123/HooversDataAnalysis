@@ -30,13 +30,20 @@ export default function App() {
 
   const [results, setResults] = useState([]);
   const center = [53.10921096801758, 8.847594261169434];
-  const position = [51.505, -0.09]
+  const position = [51.505, -0.09];
 
   const fillBlueOptions = { fillColor: "blue" };
   const fillRedOptions = { fillColor: "red" };
   const greenOptions = { color: "green", fillColor: "green" };
   const purpleOptions = { color: "purple" };
   const blueOptions = { color: "blue" };
+  function popNull(data) {
+    data.forEach(function (d) {
+      if (d.Latitude == null) {
+        data.splice(data.indexOf(d));
+      }
+    });
+  }
 
   const readExcel = (file) => {
     setResults([]);
@@ -125,7 +132,33 @@ export default function App() {
               </Popup>
               <Circle center={center} radius={200000} />
             </FeatureGroup>
-           
+            {results.map((d) => (
+              <FeatureGroup pathOptions={purpleOptions}>
+                <Popup className="Popup">
+                  <p>
+                    <b>{d["Company Name"]}</b>
+                  </p>
+                  <b>
+                    <p style={{ color: "red" }}>
+                      {"Employees: " + d["Employees (All Sites)"]}
+                    </p>
+                  </b>
+
+                  <hr />
+                  <p>
+                    <i>
+                      {d["Country/Region"] + "; "}
+                      {d["City"] + "; "}
+                      {d["Address Line 1"]}
+                    </i>
+                  </p>
+                </Popup>
+                <Circle
+                  center={[d.Latitude, d.Longitude]}
+                  radius={d["Employees (All Sites)"] * 50 + 200000}
+                />
+              </FeatureGroup>
+            ))}
           </MapContainer>
           <br />
           <br />

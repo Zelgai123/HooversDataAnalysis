@@ -71,6 +71,9 @@ a:active {
   justify-content: space-between;
   align-items: center;
 }
+.map__paragraph__red{
+  color: red;
+}
 input {
   margin: 0;
   padding: 0;
