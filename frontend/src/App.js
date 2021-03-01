@@ -13,7 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Input from "@material-ui/core/Input";
-import AdjustIcon from '@material-ui/icons/Adjust';
+import AdjustIcon from "@material-ui/icons/Adjust";
 
 import {
   MapContainer,
@@ -167,7 +167,7 @@ export default function App() {
             </MapContainer>
             <div className="body__mapsettings">
               <h2 className="body__mapsettingsheader">Map Settings</h2>
-              <hr className ="mapsettings__row" />
+              <hr className="mapsettings__row" />
               <div className="mapRadiusSettings">
                 <Typography id="input-slider" gutterBottom>
                   Circle Radius
@@ -200,64 +200,63 @@ export default function App() {
                   </Grid>
                 </Grid>
               </div>
-              <br/>
-              <hr className="mapsettings__row"/>
-              <div>
-
-              </div>
+              <br />
+              <hr className="mapsettings__row" />
+              <div></div>
             </div>
           </section>
-
           <br />
           <br />
-          <TableContainer className="table__container">
-            <Table size="small" aria-label="a dense table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <b>Company Name</b>{" "}
-                  </TableCell>
-                  <TableCell>
-                    <b>Country</b>
-                  </TableCell>
-                  <TableCell>
-                    <b>City</b>
-                  </TableCell>
-                  <TableCell>
-                    <b>Address</b>
-                  </TableCell>
-                  <TableCell>
-                    <b>Longitude</b>
-                  </TableCell>
-                  <TableCell>
-                    <b>Latitude</b>
-                  </TableCell>
-                  <TableCell>
-                    <b>Employees (Single Site)</b>
-                  </TableCell>
-                  <TableCell>
-                    <b>Revenue as Reported (EUR)</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {results.map((d) => (
-                  <TableRow key={d.Order}>
-                    <TableCell component="th" scope="row">
-                      {d["Company Name"]}
+          <div>
+            <TableContainer className="table__container">
+              <Table size="medium" aria-label="a dense table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <b>Company Name</b>{" "}
                     </TableCell>
-                    <TableCell>{d["Country/Region"]}</TableCell>
-                    <TableCell>{d.City}</TableCell>
-                    <TableCell>{d["Address Line 1"]}</TableCell>
-                    <TableCell>{d.Longitude}</TableCell>
-                    <TableCell>{d.Latitude}</TableCell>
-                    <TableCell>{d["Employees (Single Site)"]}</TableCell>
-                    <TableCell>{d["Revenue (EUR)"]}</TableCell>
+                    <TableCell>
+                      <b>Country</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>City</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Address</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Longitude</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Latitude</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Employees (Single Site)</b>
+                    </TableCell>
+                    <TableCell>
+                      <b>Revenue as Reported (EUR)</b>
+                    </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {results.map((d) => (
+                    <TableRow key={d.Order}>
+                      <TableCell component="th" scope="row">
+                        {d["Company Name"]}
+                      </TableCell>
+                      <TableCell>{d["Country/Region"]}</TableCell>
+                      <TableCell>{d.City}</TableCell>
+                      <TableCell>{d["Address Line 1"]}</TableCell>
+                      <TableCell>{d.Longitude}</TableCell>
+                      <TableCell>{d.Latitude}</TableCell>
+                      <TableCell>{d["Employees (Single Site)"]}</TableCell>
+                      <TableCell>{d["Revenue (EUR)"]}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
         </div>
       </section>
     </div>

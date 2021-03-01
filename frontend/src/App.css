@@ -93,6 +93,7 @@ a:active {
   height: 3px;
   background-color: #0080c5;
 }
+
 .body__map{
   display: flex;
   flex-direction: row;
