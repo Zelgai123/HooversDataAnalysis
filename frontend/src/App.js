@@ -9,6 +9,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
+import Input from "@material-ui/core/Input";
+import AdjustIcon from '@material-ui/icons/Adjust';
 
 import {
   MapContainer,
@@ -124,7 +129,7 @@ export default function App() {
                     href="https://www.contact-software.com/de/"
                     target="_blank"
                   >
-                    <img src={logo} alt="COntact Logo" />
+                    <img src={logo} alt="Contact Logo" />
                   </a>
                   <p>
                     <b>Contact Software</b>
@@ -140,7 +145,7 @@ export default function App() {
                     </p>
                     <b>
                       <p style={{ color: "red" }}>
-                        {"Employees: " + d["Employees (All Sites)"]}
+                        {"Employees: " + d["Employees (Single Site)"]}
                       </p>
                     </b>
 
@@ -155,21 +160,57 @@ export default function App() {
                   </Popup>
                   <Circle
                     center={[d.Latitude, d.Longitude]}
-                    radius={d["Employees (All Sites)"] * 50 + 80000}
+                    radius={d["Employees (Single Site)"] * 50 + 1200 * value}
                   />
                 </FeatureGroup>
               ))}
             </MapContainer>
             <div className="body__mapsettings">
               <h2 className="body__mapsettingsheader">Map Settings</h2>
+              <hr className ="mapsettings__row" />
+              <div className="mapRadiusSettings">
+                <Typography id="input-slider" gutterBottom>
+                  Circle Radius
+                </Typography>
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item>
+                    <AdjustIcon />
+                  </Grid>
+                  <Grid item xs>
+                    <Slider
+                      value={typeof value === "number" ? value : 0}
+                      onChange={handleSliderChange}
+                      aria-labelledby="input-slider"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Input
+                      value={value}
+                      margin="dense"
+                      onChange={handleInputChange}
+                      onBlur={handleBlur}
+                      inputProps={{
+                        step: 10,
+                        min: 0,
+                        max: 100,
+                        type: "number",
+                        "aria-labelledby": "input-slider",
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </div>
+              <br/>
+              <hr className="mapsettings__row"/>
+              <div>
 
-              
+              </div>
             </div>
           </section>
 
           <br />
           <br />
-          <TableContainer>
+          <TableContainer className="table__container">
             <Table size="small" aria-label="a dense table">
               <TableHead>
                 <TableRow>
@@ -183,7 +224,7 @@ export default function App() {
                     <b>City</b>
                   </TableCell>
                   <TableCell>
-                    <b> Address Line 1</b>
+                    <b>Address</b>
                   </TableCell>
                   <TableCell>
                     <b>Longitude</b>
@@ -192,13 +233,10 @@ export default function App() {
                     <b>Latitude</b>
                   </TableCell>
                   <TableCell>
-                    <b>Employees (All Sites)</b>
+                    <b>Employees (Single Site)</b>
                   </TableCell>
                   <TableCell>
-                    <b>Net Worth (EUR)</b>
-                  </TableCell>
-                  <TableCell>
-                    <b>Phone</b>
+                    <b>Revenue as Reported (EUR)</b>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -213,9 +251,8 @@ export default function App() {
                     <TableCell>{d["Address Line 1"]}</TableCell>
                     <TableCell>{d.Longitude}</TableCell>
                     <TableCell>{d.Latitude}</TableCell>
-                    <TableCell>{d["Employees (All Sites)"]}</TableCell>
-                    <TableCell>{d["Net Worth (EUR)"]}</TableCell>
-                    <TableCell>{d.Phone}</TableCell>
+                    <TableCell>{d["Employees (Single Site)"]}</TableCell>
+                    <TableCell>{d["Revenue (EUR)"]}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
