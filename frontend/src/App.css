@@ -61,8 +61,18 @@ a:active {
   font-size: 1rem;
 }
 .MapContainer {
-  height: 100vh;
-  width: 100wh;
+  height: 800px;
+  width: 66%;
+  border-radius: 8px;
+  margin: 2rem;
+}
+.body__mapsettings h2{
+  color:#fff;
+}
+.body__mapsettings{
+  background-color: #73B9DF;
+  width: 34%;
+  margin: 2rem;
   border-radius: 8px;
 }
 .section_upload {
@@ -74,6 +84,11 @@ a:active {
 .map__paragraph__red{
   color: red;
 }
+.body__map{
+  display: flex;
+  flex-direction: row;
+  flex-flow: flex-start;
+}
 input {
   margin: 0;
   padding: 0;
@@ -81,4 +96,5 @@ input {
 }
 form {
   padding: 0;
+  
 }

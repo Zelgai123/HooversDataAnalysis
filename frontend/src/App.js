@@ -9,6 +9,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+
 import {
   MapContainer,
   TileLayer,
@@ -18,20 +19,27 @@ import {
 } from "react-leaflet";
 
 export default function App() {
-
-
   const [results, setResults] = useState([]);
+  const [value, setValue] = useState(30);
   const center = [53.10921096801758, 8.847594261169434];
 
   const purpleOptions = { color: "purple" };
   const blueOptions = { color: "blue" };
-  function popNull(data) {
-    data.forEach(function (d) {
-      if (d.Latitude == null) {
-        data.splice(data.indexOf(d));
-      }
-    });
-  }
+
+  const handleSliderChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleInputChange = (event) => {
+    setValue(event.target.value === "" ? "" : Number(event.target.value));
+  };
+  const handleBlur = () => {
+    if (value < 0) {
+      setValue(0);
+    } else if (value > 100) {
+      setValue(100);
+    }
+  };
 
   const readExcel = (file) => {
     setResults([]);
@@ -67,7 +75,7 @@ export default function App() {
     <div className="App">
       <header>
         <a href="https://www.contact-software.com/de/" target="_blank">
-          <img src={logo} alt="Contact Logo"/>
+          <img src={logo} alt="Contact Logo" />
         </a>
         <p>
           <a
@@ -99,55 +107,66 @@ export default function App() {
           />
           <br />
           <br />
-          <MapContainer
-            className="MapContainer"
-            center={center}
-            zoom={3}
-            scrollWheelZoom={true}
-          >
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <FeatureGroup pathOptions={blueOptions}>
-              <Popup className="Popup">
-                <a href="https://www.contact-software.com/de/" target="_blank">
-                  <img src={logo} alt="COntact Logo" />
-                </a>
-                <p>
-                  <b>Contact Software</b>
-                </p>
-              </Popup>
-              <Circle center={center} radius={200000} />
-            </FeatureGroup>
-            {results.map((d) => (
-              <FeatureGroup pathOptions={purpleOptions}>
+          <section className="body__map">
+            <MapContainer
+              className="MapContainer"
+              center={center}
+              zoom={3}
+              scrollWheelZoom={true}
+            >
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <FeatureGroup pathOptions={blueOptions}>
                 <Popup className="Popup">
+                  <a
+                    href="https://www.contact-software.com/de/"
+                    target="_blank"
+                  >
+                    <img src={logo} alt="COntact Logo" />
+                  </a>
                   <p>
-                    <b>{d["Company Name"]}</b>
-                  </p>
-                  <b>
-                    <p style={{ color: "red" }}>
-                      {"Employees: " + d["Employees (All Sites)"]}
-                    </p>
-                  </b>
-
-                  <hr />
-                  <p>
-                    <i>
-                      {d["Country/Region"] + "; "}
-                      {d["City"] + "; "}
-                      {d["Address Line 1"]}
-                    </i>
+                    <b>Contact Software</b>
                   </p>
                 </Popup>
-                <Circle
-                  center={[d.Latitude, d.Longitude]}
-                  radius={d["Employees (All Sites)"] * 200 + 200000}
-                />
+                <Circle center={center} radius={200000} />
               </FeatureGroup>
-            ))}
-          </MapContainer>
+              {results.map((d) => (
+                <FeatureGroup pathOptions={purpleOptions}>
+                  <Popup className="Popup">
+                    <p>
+                      <b>{d["Company Name"]}</b>
+                    </p>
+                    <b>
+                      <p style={{ color: "red" }}>
+                        {"Employees: " + d["Employees (All Sites)"]}
+                      </p>
+                    </b>
+
+                    <hr />
+                    <p>
+                      <i>
+                        {d["Country/Region"] + "; "}
+                        {d["City"] + "; "}
+                        {d["Address Line 1"]}
+                      </i>
+                    </p>
+                  </Popup>
+                  <Circle
+                    center={[d.Latitude, d.Longitude]}
+                    radius={d["Employees (All Sites)"] * 50 + 80000}
+                  />
+                </FeatureGroup>
+              ))}
+            </MapContainer>
+            <div className="body__mapsettings">
+              <h2 className="body__mapsettingsheader">Map Settings</h2>
+
+              
+            </div>
+          </section>
+
           <br />
           <br />
           <TableContainer>
