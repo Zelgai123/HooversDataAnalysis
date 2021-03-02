@@ -19,6 +19,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { green } from "@material-ui/core/colors";
+import Switch from "@material-ui/core/Switch";
 
 import {
   MapContainer,
@@ -37,6 +38,7 @@ export default function App() {
   const [radiusDependency, setRadiusDependency] = useState(
     "Employees (Single Site)"
   );
+  const [treeSwitch, setTreeSwitch] = useState(false);
 
   const blueOptions = { color: "blue" };
   const secondOption = { color: circleColor };
@@ -57,6 +59,10 @@ export default function App() {
     } else {
       return d[radiusDependency] / 100;
     }
+  };
+  const handleTreeSwitchChange = (event) => {
+    setTreeSwitch(!event.target.checked);
+    console.log(treeSwitch);
   };
   const handleDependencyChange = (event) => {
     setRadiusDependency(event.target.value);
@@ -291,9 +297,21 @@ export default function App() {
               </div>
               <br />
               <hr className="mapsettings__row" />
-              <Typography id="input-slider" gutterBottom>
-                Test Setting
-              </Typography>
+              <div className="mapsettings__colorsetter">
+                <Typography id="input-slider" gutterBottom>
+                  Company Dependency
+                </Typography>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      onChange={handleTreeSwitchChange}
+                      name="treeCheck"
+                      color="primary"
+                    />
+                  }
+                  label="Show Company Dependency"
+                />
+              </div>
             </div>
           </section>
           <br />
