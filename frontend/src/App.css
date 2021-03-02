@@ -62,16 +62,16 @@ a:active {
 }
 .MapContainer {
   height: 800px;
-  width: 66%;
+  width: 75%;
   border-radius: 8px;
-  margin: 2rem;
+  margin: 2rem 0rem 2rem 2rem;
 }
 .body__mapsettings h2{
   color:#fff;
 }
 .body__mapsettings{
   background-color: #73B9DF;
-  width: 34%;
+  width: 25%;
   margin: 2rem;
   border-radius: 8px;
 }
@@ -93,11 +93,16 @@ a:active {
   height: 3px;
   background-color: #0080c5;
 }
-
+.mapsettings__colorsetter{
+  margin: 0rem 3rem;
+}
+.mapsettings__radiogroup{
+  padding:0.5rem;
+}
 .body__map{
   display: flex;
   flex-direction: row;
-  flex-flow: flex-start;
+  justify-content: flex-start;
 }
 input {
   margin: 0;

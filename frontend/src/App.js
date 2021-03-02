@@ -14,6 +14,11 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import Input from "@material-ui/core/Input";
 import AdjustIcon from "@material-ui/icons/Adjust";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import { green } from "@material-ui/core/colors";
 
 import {
   MapContainer,
@@ -22,14 +27,40 @@ import {
   Circle,
   FeatureGroup,
 } from "react-leaflet";
+import { circle } from "leaflet";
 
 export default function App() {
   const [results, setResults] = useState([]);
   const [value, setValue] = useState(30);
   const center = [53.10921096801758, 8.847594261169434];
+  const [circleColor, setCircleColor] = useState("purple");
+  const [radiusDependency, setRadiusDependency] = useState(
+    "Employees (Single Site)"
+  );
 
-  const purpleOptions = { color: "purple" };
   const blueOptions = { color: "blue" };
+  const secondOption = { color: circleColor };
+
+  const handleColorChange = (event) => {
+    setCircleColor(event.target.value);
+  };
+  const cardStringGenerator = () => {
+    if (radiusDependency === "Employees (Single Site)") {
+      return "Employees: ";
+    } else {
+      return "Revenue (EUR): ";
+    }
+  };
+  const calculatedRadiusDependency = (d) => {
+    if (radiusDependency === "Employees (Single Site)") {
+      return d[radiusDependency] * 1000;
+    } else {
+      return d[radiusDependency] / 100;
+    }
+  };
+  const handleDependencyChange = (event) => {
+    setRadiusDependency(event.target.value);
+  };
 
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
@@ -138,14 +169,14 @@ export default function App() {
                 <Circle center={center} radius={200000} />
               </FeatureGroup>
               {results.map((d) => (
-                <FeatureGroup pathOptions={purpleOptions}>
+                <FeatureGroup pathOptions={secondOption}>
                   <Popup className="Popup">
                     <p>
                       <b>{d["Company Name"]}</b>
                     </p>
                     <b>
                       <p style={{ color: "red" }}>
-                        {"Employees: " + d["Employees (Single Site)"]}
+                        {cardStringGenerator() + d[radiusDependency]}
                       </p>
                     </b>
 
@@ -160,7 +191,7 @@ export default function App() {
                   </Popup>
                   <Circle
                     center={[d.Latitude, d.Longitude]}
-                    radius={d["Employees (Single Site)"] * 50 + 1200 * value}
+                    radius={calculatedRadiusDependency(d) + 1200 * value}
                   />
                 </FeatureGroup>
               ))}
@@ -202,7 +233,67 @@ export default function App() {
               </div>
               <br />
               <hr className="mapsettings__row" />
-              <div></div>
+              <div>
+                <br />
+                <div className="mapsettings__colorsetter">
+                  <FormControl component="fieldset">
+                    <Typography id="input-slider" gutterBottom>
+                      Circle Color
+                    </Typography>
+                    <RadioGroup
+                      aria-label="color"
+                      name="color"
+                      value={value}
+                      onChange={handleColorChange}
+                    >
+                      <FormControlLabel
+                        value="red"
+                        control={<Radio />}
+                        label="Red"
+                      />
+                      <FormControlLabel
+                        value="purple"
+                        control={<Radio />}
+                        label="Purple"
+                      />
+                      <FormControlLabel
+                        value="Green"
+                        control={<Radio />}
+                        label="Green"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+              </div>
+              <br />
+              <hr className="mapsettings__row" />
+              <div className="mapsettings__colorsetter">
+                <Typography id="input-slider" gutterBottom>
+                  Circle Radius Dependency
+                </Typography>
+                <RadioGroup
+                  aria-label="color"
+                  name="color"
+                  value={value}
+                  onChange={handleDependencyChange}
+                >
+                  <FormControlLabel
+                    value="Employees (Single Site)"
+                    control={<Radio />}
+                    label="Employees (Single Site)"
+                  />
+                  <FormControlLabel
+                    value="Revenue (EUR)"
+                    control={<Radio />}
+                    label="Revenue as Reported (EUR)"
+                  />
+                </RadioGroup>
+              </div>
+              <br />
+              <hr className="mapsettings__row" />
+              <Typography id="input-slider" gutterBottom>
+                Test Setting
+              </Typography>
             </div>
           </section>
           <br />
