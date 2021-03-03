@@ -83,11 +83,6 @@ export default function App() {
       setValue(100);
     }
   };
-  {
-    /*    { field: "Address Line 1", headerName: "Address", width: 70 },
-    { field: "Longitude", headerName: "Longitude", width: 130 },
-    { field: "Latitude", headerName: "Latitude", width: 130 },*/
-  }
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "Company Name", headerName: "Company Name", width: 250 },
