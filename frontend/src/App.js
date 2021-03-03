@@ -20,6 +20,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { green } from "@material-ui/core/colors";
 import Switch from "@material-ui/core/Switch";
+import { DataGrid } from "@material-ui/data-grid";
 
 import {
   MapContainer,
@@ -55,9 +56,9 @@ export default function App() {
   };
   const calculatedRadiusDependency = (d) => {
     if (radiusDependency === "Employees (Single Site)") {
-      return d[radiusDependency] * 1000;
+      return d[radiusDependency] * 100;
     } else {
-      return d[radiusDependency] / 100;
+      return d[radiusDependency] / 300;
     }
   };
   const handleTreeSwitchChange = (event) => {
@@ -82,6 +83,32 @@ export default function App() {
       setValue(100);
     }
   };
+  {
+    /*    { field: "Address Line 1", headerName: "Address", width: 70 },
+    { field: "Longitude", headerName: "Longitude", width: 130 },
+    { field: "Latitude", headerName: "Latitude", width: 130 },*/
+  }
+  const columns = [
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "Company Name", headerName: "Company Name", width: 250 },
+    {
+      field: "D&B Hoovers Industry",
+      headerName: "D&B Hoovers Industry",
+      width: 250,
+    },
+    { field: "Country/Region", headerName: "Country", width: 150 },
+    { field: "City", headerName: "City", width: 200 },
+    {
+      field: "Employees (Single Site)",
+      headerName: "Employees",
+      width: 130,
+    },
+    {
+      field: "Revenue (EUR)",
+      headerName: "Revenue (EUR)",
+      width: 200,
+    },
+  ];
 
   const readExcel = (file) => {
     setResults([]);
@@ -193,11 +220,15 @@ export default function App() {
                         {d["City"] + "; "}
                         {d["Address Line 1"]}
                       </i>
+                      <br/>
+                      <p>
+                        {d["Business Description"]}
+                      </p>
                     </p>
                   </Popup>
                   <Circle
                     center={[d.Latitude, d.Longitude]}
-                    radius={calculatedRadiusDependency(d) + 1200 * value}
+                    radius={calculatedRadiusDependency(d) + 6000 * value}
                   />
                 </FeatureGroup>
               ))}
@@ -316,55 +347,13 @@ export default function App() {
           </section>
           <br />
           <br />
-          <div>
-            <TableContainer className="table__container">
-              <Table size="medium" aria-label="a dense table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <b>Company Name</b>{" "}
-                    </TableCell>
-                    <TableCell>
-                      <b>Country</b>
-                    </TableCell>
-                    <TableCell>
-                      <b>City</b>
-                    </TableCell>
-                    <TableCell>
-                      <b>Address</b>
-                    </TableCell>
-                    <TableCell>
-                      <b>Longitude</b>
-                    </TableCell>
-                    <TableCell>
-                      <b>Latitude</b>
-                    </TableCell>
-                    <TableCell>
-                      <b>Employees (Single Site)</b>
-                    </TableCell>
-                    <TableCell>
-                      <b>Revenue as Reported (EUR)</b>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {results.map((d) => (
-                    <TableRow key={d.Order}>
-                      <TableCell component="th" scope="row">
-                        {d["Company Name"]}
-                      </TableCell>
-                      <TableCell>{d["Country/Region"]}</TableCell>
-                      <TableCell>{d.City}</TableCell>
-                      <TableCell>{d["Address Line 1"]}</TableCell>
-                      <TableCell>{d.Longitude}</TableCell>
-                      <TableCell>{d.Latitude}</TableCell>
-                      <TableCell>{d["Employees (Single Site)"]}</TableCell>
-                      <TableCell>{d["Revenue (EUR)"]}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+          <div style={{ height: 400, width: "100%" }}>
+            <DataGrid
+              rows={results}
+              columns={columns}
+              pageSize={10}
+              checkboxSelection
+            />
           </div>
         </div>
       </section>
