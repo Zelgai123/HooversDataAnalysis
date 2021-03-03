@@ -199,7 +199,7 @@ export default function App() {
                     <b>Contact Software</b>
                   </p>
                 </Popup>
-                <Circle center={center} radius={200000} />
+                <Circle center={center} radius={200000*(value/1000)} />
               </FeatureGroup>
               {results.map((d) => (
                 <FeatureGroup pathOptions={secondOption}>
@@ -220,10 +220,8 @@ export default function App() {
                         {d["City"] + "; "}
                         {d["Address Line 1"]}
                       </i>
-                      <br/>
-                      <p>
-                        {d["Business Description"]}
-                      </p>
+                      <br />
+                      <p>{d["Business Description"]}</p>
                     </p>
                   </Popup>
                   <Circle
