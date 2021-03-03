@@ -51,7 +51,7 @@ export default function App() {
     if (radiusDependency === "Employees (Single Site)") {
       return "Employees: ";
     } else {
-      return "Revenue (EUR): ";
+      return "Revenue: ";
     }
   };
   const calculatedRadiusDependency = (d) => {
@@ -104,11 +104,19 @@ export default function App() {
       width: 130,
     },
     {
-      field: "Revenue (EUR)",
-      headerName: "Revenue (EUR)",
+      field: "Revenue (EUR) formated",
+      headerName: "Revenue",
+      sortable: false,
       width: 200,
     },
   ];
+  const cardEuroFunction = () => {
+    if (radiusDependency === "Revenue (EUR)") {
+      return "Revenue (EUR) formated";
+    } else {
+      return "Employees (Single Site)";
+    }
+  };
 
   const readExcel = (file) => {
     setResults([]);
@@ -136,6 +144,15 @@ export default function App() {
     });
 
     promise.then((d) => {
+      d.map(function (obj) {
+        obj["id"] = obj["Order"];
+      });
+      d.map(function (obj) {
+        obj["Revenue (EUR) formated"] = new Intl.NumberFormat("de-DE", {
+          style: "currency",
+          currency: "EUR",
+        }).format(obj["Revenue (EUR)"]);
+      });
       setResults(d);
       console.log(d);
     });
@@ -199,7 +216,7 @@ export default function App() {
                     <b>Contact Software</b>
                   </p>
                 </Popup>
-                <Circle center={center} radius={200000*(value/1000)} />
+                <Circle center={center} radius={200000 * (value / 1000)} />
               </FeatureGroup>
               {results.map((d) => (
                 <FeatureGroup pathOptions={secondOption}>
@@ -209,7 +226,7 @@ export default function App() {
                     </p>
                     <b>
                       <p style={{ color: "red" }}>
-                        {cardStringGenerator() + d[radiusDependency]}
+                        {cardStringGenerator() + d[cardEuroFunction()]}
                       </p>
                     </b>
 
@@ -320,7 +337,7 @@ export default function App() {
                   <FormControlLabel
                     value="Revenue (EUR)"
                     control={<Radio />}
-                    label="Revenue as Reported (EUR)"
+                    label="Revenue (EUR)"
                   />
                 </RadioGroup>
               </div>
