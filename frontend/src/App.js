@@ -88,7 +88,7 @@ export default function App() {
     }
   };
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "Order", width: 100 },
     { field: "Company Name", headerName: "Company Name", width: 250 },
     {
       field: "D&B Hoovers Industry",
@@ -143,11 +143,13 @@ export default function App() {
     });
 
     promise.then((d) => {
+      let i = 1;
       d.map(function (obj) {
-        if (obj["Order" != null]) {
+        if (obj["Order"] != null) {
           obj["id"] = obj["Order"];
         } else {
-          obj["id"] = 0;
+          obj["id"] = i;
+          i = i+1;
         }
       });
 
