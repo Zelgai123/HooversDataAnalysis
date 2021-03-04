@@ -56,13 +56,12 @@ export default function App() {
   };
   const calculatedRadiusDependency = (d) => {
     if (radiusDependency === "Employees (Single Site)") {
-      return d[radiusDependency] * 100;
+      return d[radiusDependency] * 5;
     } else {
-      if(d[radiusDependency] > 300000000){
-        return 300000
-      }
-      else{
-        return d[radiusDependency] / 1000;
+      if (d[radiusDependency] < 300000000) {
+        return d[radiusDependency] / 100000;
+      } else {
+        return 3000;
       }
     }
   };
@@ -145,8 +144,13 @@ export default function App() {
 
     promise.then((d) => {
       d.map(function (obj) {
-        obj["id"] = obj["Order"];
+        if (obj["Order" != null]) {
+          obj["id"] = obj["Order"];
+        } else {
+          obj["id"] = 0;
+        }
       });
+
       d.map(function (obj) {
         obj["Revenue (EUR) formated"] = new Intl.NumberFormat("de-DE", {
           style: "currency",
@@ -216,7 +220,7 @@ export default function App() {
                     <b>Contact Software</b>
                   </p>
                 </Popup>
-                <Circle center={center} radius={200000 * (value / 1000)} />
+                <Circle center={center} radius={1500000 * (value / 1000)} />
               </FeatureGroup>
               {results.map((d) => (
                 <FeatureGroup pathOptions={secondOption}>
