@@ -56,7 +56,11 @@ export default function App() {
   };
   const calculatedRadiusDependency = (d) => {
     if (radiusDependency === "Employees (Single Site)") {
-      return d[radiusDependency] * 5;
+      if (d[radiusDependency] == "n/a") {
+        return 0;
+      } else {
+        return d[radiusDependency] * 5;
+      }
     } else {
       if (d[radiusDependency] < 300000000) {
         return d[radiusDependency] / 100000;
@@ -149,7 +153,12 @@ export default function App() {
           obj["id"] = obj["Order"];
         } else {
           obj["id"] = i;
-          i = i+1;
+          i = i + 1;
+        }
+      });
+      d.map(function (obj) {
+        if (obj["Employees (Single Site)"] == "") {
+          obj["Employees (Single Site)"] = "n/a";
         }
       });
 
