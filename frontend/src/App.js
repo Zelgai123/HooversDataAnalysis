@@ -58,7 +58,12 @@ export default function App() {
     if (radiusDependency === "Employees (Single Site)") {
       return d[radiusDependency] * 100;
     } else {
-      return d[radiusDependency] / 300;
+      if(d[radiusDependency] > 300000000){
+        return 300000
+      }
+      else{
+        return d[radiusDependency] / 1000;
+      }
     }
   };
   const handleTreeSwitchChange = (event) => {
