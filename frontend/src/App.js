@@ -2,13 +2,7 @@ import "./App.css";
 import logo from "./contact-logo.PNG";
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import "leaflet/dist/leaflet.css";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
@@ -18,10 +12,8 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import { green } from "@material-ui/core/colors";
 import Switch from "@material-ui/core/Switch";
 import { DataGrid } from "@material-ui/data-grid";
-
 import {
   MapContainer,
   TileLayer,
@@ -29,21 +21,44 @@ import {
   Circle,
   FeatureGroup,
 } from "react-leaflet";
-import { circle } from "leaflet";
 
 export default function App() {
+  /*Variable and State Management*/
+  const center = [53.10921096801758, 8.847594261169434];
+  const columns = [
+    { field: "id", headerName: "Order", width: 100 },
+    { field: "Company Name", headerName: "Company Name", width: 250 },
+    {
+      field: "D&B Hoovers Industry",
+      headerName: "D&B Hoovers Industry",
+      width: 250,
+    },
+    { field: "Country/Region", headerName: "Country", width: 150 },
+    { field: "City", headerName: "City", width: 200 },
+    {
+      field: "Employees (Single Site)",
+      headerName: "Employees",
+      sortable: false,
+      width: 130,
+    },
+    {
+      field: "Revenue (EUR) formated",
+      headerName: "Revenue",
+      sortable: false,
+      width: 200,
+    },
+  ];
   const [results, setResults] = useState([]);
   const [value, setValue] = useState(30);
-  const center = [53.10921096801758, 8.847594261169434];
   const [circleColor, setCircleColor] = useState("purple");
+  const blueOptions = { color: "blue" };
+  const secondOption = { color: circleColor };
   const [radiusDependency, setRadiusDependency] = useState(
     "Employees (Single Site)"
   );
   const [treeSwitch, setTreeSwitch] = useState(false);
 
-  const blueOptions = { color: "blue" };
-  const secondOption = { color: circleColor };
-
+  /*Functions*/
   const handleColorChange = (event) => {
     setCircleColor(event.target.value);
   };
@@ -56,7 +71,7 @@ export default function App() {
   };
   const calculatedRadiusDependency = (d) => {
     if (radiusDependency === "Employees (Single Site)") {
-      if (d[radiusDependency] == "n/a") {
+      if (d[radiusDependency] === "n/a") {
         return 0;
       } else {
         return d[radiusDependency] * 5;
@@ -76,11 +91,9 @@ export default function App() {
   const handleDependencyChange = (event) => {
     setRadiusDependency(event.target.value);
   };
-
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const handleInputChange = (event) => {
     setValue(event.target.value === "" ? "" : Number(event.target.value));
   };
@@ -91,28 +104,6 @@ export default function App() {
       setValue(100);
     }
   };
-  const columns = [
-    { field: "id", headerName: "Order", width: 100 },
-    { field: "Company Name", headerName: "Company Name", width: 250 },
-    {
-      field: "D&B Hoovers Industry",
-      headerName: "D&B Hoovers Industry",
-      width: 250,
-    },
-    { field: "Country/Region", headerName: "Country", width: 150 },
-    { field: "City", headerName: "City", width: 200 },
-    {
-      field: "Employees (Single Site)",
-      headerName: "Employees",
-      width: 130,
-    },
-    {
-      field: "Revenue (EUR) formated",
-      headerName: "Revenue",
-      sortable: false,
-      width: 200,
-    },
-  ];
   const cardEuroFunction = () => {
     if (radiusDependency === "Revenue (EUR)") {
       return "Revenue (EUR) formated";
@@ -120,7 +111,6 @@ export default function App() {
       return "Employees (Single Site)";
     }
   };
-
   const readExcel = (file) => {
     setResults([]);
     const promise = new Promise((resolve, reject) => {
@@ -157,7 +147,7 @@ export default function App() {
         }
       });
       d.map(function (obj) {
-        if (obj["Employees (Single Site)"] == "") {
+        if (obj["Employees (Single Site)"] === "") {
           obj["Employees (Single Site)"] = "n/a";
         }
       });
@@ -172,6 +162,8 @@ export default function App() {
       console.log(d);
     });
   };
+
+  /*Component Definition*/
   return (
     <div className="App">
       <header>
@@ -266,6 +258,7 @@ export default function App() {
             <div className="body__mapsettings">
               <h2 className="body__mapsettingsheader">Map Settings</h2>
               <hr className="mapsettings__row" />
+              <br/>
               <div className="mapRadiusSettings">
                 <Typography id="input-slider" gutterBottom>
                   Circle Radius
@@ -334,6 +327,7 @@ export default function App() {
               </div>
               <br />
               <hr className="mapsettings__row" />
+              <br/>
               <div className="mapsettings__colorsetter">
                 <Typography id="input-slider" gutterBottom>
                   Circle Radius Dependency
@@ -356,23 +350,7 @@ export default function App() {
                   />
                 </RadioGroup>
               </div>
-              <br />
-              <hr className="mapsettings__row" />
-              <div className="mapsettings__colorsetter">
-                <Typography id="input-slider" gutterBottom>
-                  Company Dependency
-                </Typography>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      onChange={handleTreeSwitchChange}
-                      name="treeCheck"
-                      color="primary"
-                    />
-                  }
-                  label="Show Company Dependency"
-                />
-              </div>
+              
             </div>
           </section>
           <br />
