@@ -250,7 +250,7 @@ export default function App() {
                   </Popup>
                   <Circle
                     center={[d.Latitude, d.Longitude]}
-                    radius={calculatedRadiusDependency(d) + 6000 * value}
+                    radius={0.001*calculatedRadiusDependency(d)*value}
                   />
                 </FeatureGroup>
               ))}
