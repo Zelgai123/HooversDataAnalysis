@@ -83,10 +83,6 @@ export default function App() {
       }
     }
   };
-  const handleTreeSwitchChange = (event) => {
-    setTreeSwitch(!event.target.checked);
-    console.log(treeSwitch);
-  };
   const handleDependencyChange = (event) => {
     setRadiusDependency(event.target.value);
   };
