@@ -26,14 +26,15 @@ export default function App() {
   const center = [53.10921096801758, 8.847594261169434];
   const columns = [
     { field: "id", headerName: "Order", width: 100 },
-    { field: "Company Name", headerName: "Company Name", width: 250 },
+    { field: "Company Name", headerName: "Company Name", width: 200 },
     {
       field: "D&B Hoovers Industry",
       headerName: "D&B Hoovers Industry",
-      width: 250,
+      width: 200,
     },
     { field: "Country/Region", headerName: "Country", width: 150 },
     { field: "City", headerName: "City", width: 200 },
+    { field: "Address Line 1", headerName: "Adress", width: 300 },
     {
       field: "Employees (Single Site)",
       headerName: "Employees",
@@ -48,7 +49,7 @@ export default function App() {
     },
   ];
   const [results, setResults] = useState([]);
-  const [value, setValue] = useState(30);
+  const [value, setValue] = useState(10);
   const [circleColor, setCircleColor] = useState("purple");
   const blueOptions = { color: "blue" };
   const secondOption = { color: circleColor };
@@ -162,13 +163,18 @@ export default function App() {
   return (
     <div className="App">
       <header>
-        <a href="https://www.contact-software.com/de/" target="_blank">
+        <a
+          href="https://www.contact-software.com/de/"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img src={logo} alt="Contact Logo" />
         </a>
         <p>
           <a
             href="https://github.com/Zelgai123/HooversDataAnalysis"
             target="_blank"
+            rel="noreferrer"
           >
             More Info
           </a>
@@ -211,6 +217,7 @@ export default function App() {
                   <a
                     href="https://www.contact-software.com/de/"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     <img src={logo} alt="Contact Logo" />
                   </a>
@@ -218,7 +225,7 @@ export default function App() {
                     <b>Contact Software</b>
                   </p>
                 </Popup>
-                <Circle center={center} radius={1500000 * (value / 1000)} />
+                <Circle center={center} radius={1500000 * (10 / 1000)} />
               </FeatureGroup>
               {results.map((d) => (
                 <FeatureGroup pathOptions={secondOption}>
@@ -227,11 +234,13 @@ export default function App() {
                       <b>{d["Company Name"]}</b>
                     </p>
                     <b>
+                      <a href={d["URL"]} target="_blank" rel="noreferrer">
+                        <p style={{ color: "blue" }}>Link to Homepage</p>
+                      </a>
                       <p style={{ color: "red" }}>
                         {cardStringGenerator() + d[cardEuroFunction()]}
                       </p>
                     </b>
-
                     <hr />
                     <p>
                       <i>
@@ -245,7 +254,7 @@ export default function App() {
                   </Popup>
                   <Circle
                     center={[d.Latitude, d.Longitude]}
-                    radius={0.01*calculatedRadiusDependency(d)*value}
+                    radius={0.001 * calculatedRadiusDependency(d) * value*value*(0.5*value)}
                   />
                 </FeatureGroup>
               ))}
@@ -253,7 +262,7 @@ export default function App() {
             <div className="body__mapsettings">
               <h2 className="body__mapsettingsheader">Map Settings</h2>
               <hr className="mapsettings__row" />
-              <br/>
+              <br />
               <div className="mapRadiusSettings">
                 <Typography id="input-slider" gutterBottom>
                   Circle Radius
@@ -322,7 +331,7 @@ export default function App() {
               </div>
               <br />
               <hr className="mapsettings__row" />
-              <br/>
+              <br />
               <div className="mapsettings__colorsetter">
                 <Typography id="input-slider" gutterBottom>
                   Circle Radius Dependency
@@ -345,7 +354,6 @@ export default function App() {
                   />
                 </RadioGroup>
               </div>
-              
             </div>
           </section>
           <br />
